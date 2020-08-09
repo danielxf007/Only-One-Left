@@ -3,14 +3,13 @@ signal was_selected(cell)
 signal was_deselected(cell)
 class_name Cell
 const SELECT_COLORS: Array = ["ffffff", "50ffffff"]
-const DISABLED_STATE: String = '000'
-export(Dictionary) var TEXTURE_STATE: Dictionary
-var current_state: String = '001'
+var current_state: String
 var selected: bool
 var coord: TupleInt
 
-func _ready():
-	self.texture = self.TEXTURE_STATE[self.current_state]
+func set_current_state(new_state: String, new_texture: Texture) -> void:
+	self.current_state = new_state
+	self.texture = new_texture
 
 func set_on_board(board_pos: Vector2, board_coord: TupleInt) -> void:
 	self.global_position = board_pos
@@ -29,14 +28,6 @@ func select() -> void:
 		self.emit_signal("was_selected", self)
 	else:
 		self.emit_signal("was_deselected", self)
-
-func is_enabled() -> bool:
-	return self.current_state != self.DISABLED_STATE
-	
-func change_state(new_state: String) -> void:
-	if self.is_enabled():
-		self.texture = self.TEXTURE_STATE[new_state]
-		self.current_state = new_state
 
 func set_dim(dimensions: Vector2) -> void:
 	var texture_dim: Vector2 = self.texture.get_size()
