@@ -8,9 +8,20 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "Sprite",
+"class": "Cell",
+"language": "GDScript",
+"path": "res://board/cell/cell.gd"
+}, {
+"base": "Node",
+"class": "TupleInt",
+"language": "GDScript",
+"path": "res://util/tuple_int.gd"
+} ]
 _global_script_class_icons={
-
+"Cell": "",
+"TupleInt": ""
 }
 
 [application]
