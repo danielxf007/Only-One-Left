@@ -34,3 +34,8 @@ func change_state(new_state: String) -> void:
 	if self.is_enabled():
 		self.texture = self.TEXTURE_STATE[new_state]
 		self.current_state = new_state
+
+func set_dim(dimensions: Vector2) -> void:
+	var texture_dim: Vector2 = self.texture.get_size()
+	self.scale.x = texture_dim.x/dimensions.x
+	self.scale.x = texture_dim.y/dimensions.y
