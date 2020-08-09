@@ -6,7 +6,7 @@ const SELECT_COLORS: Array = ["ffffff", "50ffffff"]
 var current_state: String
 var selected: bool
 
-func set_current_state(new_state: String, new_texture: Texture) -> void:
+func set_state(new_state: String, new_texture: Texture) -> void:
 	self.current_state = new_state
 	self.texture = new_texture
 

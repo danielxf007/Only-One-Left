@@ -20,6 +20,11 @@ _global_script_classes=[ {
 "path": "res://board/cell/cell.gd"
 }, {
 "base": "Node",
+"class": "TupleFloat",
+"language": "GDScript",
+"path": "res://util/tuple_float.gd"
+}, {
+"base": "Node",
 "class": "TupleInt",
 "language": "GDScript",
 "path": "res://util/tuple_int.gd"
@@ -32,6 +37,7 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "Board": "",
 "Cell": "",
+"TupleFloat": "",
 "TupleInt": "",
 "TwoDimensionalArray": ""
 }

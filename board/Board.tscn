@@ -8,5 +8,3 @@ script = ExtResource( 1 )
 
 [node name="BackGround" type="Sprite" parent="."]
 script = ExtResource( 2 )
-[connection signal="board_dimensions_changed" from="." to="BackGround" method="_on_Board_board_dimensions_changed"]
-[connection signal="cell_dim_changed" from="." to="BackGround" method="_on_Board_cell_dim_changed"]
