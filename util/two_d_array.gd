@@ -5,8 +5,14 @@ class_name TwoDimensionalArray
 var dimensions: TupleInt
 var array: Array
 
-func _init(dim: TupleInt, arr: Array):
+func _init(dim: TupleInt, arr: Array) -> void:
 	self.dimensions = dim
+	self.array = arr
+
+func set_dimensions(dim: TupleInt) -> void:
+	self.dimensions = dim
+
+func set_array(arr: Array) -> void:
 	self.array = arr
 
 func get_dimensions() -> TupleInt:
@@ -24,12 +30,12 @@ func add_column(column: Array) -> void:
 		row = self.array[index]
 		row.append(column[index])
 
-func delete_row(row_index: int) -> void:
-	self.array.remove(row_index)
+func delete_row() -> void:
+	self.array.pop_back()
 
-func delete_column(column_index: int) -> void:
+func delete_column() -> void:
 	for row in self.array:
-		row.remove(column_index)
+		row.pop_back()
 
 func valid_indexes(indexes: TupleInt) -> bool:
 	return (UtilFunctions.number_in_range_integer(0, self.dimensions.i-1,
@@ -40,3 +46,20 @@ func get_element(indexes: TupleInt):
 	if self.valid_indexes(indexes):
 		return self.array[indexes.i][indexes.j]
 	return null
+
+func is_empty() -> bool:
+	return self.array.empty()
+
+func get_storage_space() -> int:
+	return self.dimensions.i*self.dimensions.j
+
+func get_n_rows() -> int:
+	return self.array.size()
+
+func get_m_columns() -> int:
+	var m_columns: int
+	if self.is_empty():
+		m_columns = 0
+	else:
+		m_columns = self.array[0].size()
+	return m_columns

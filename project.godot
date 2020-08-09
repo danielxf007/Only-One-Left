@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Node2D",
+"class": "Board",
+"language": "GDScript",
+"path": "res://board/board.gd"
+}, {
 "base": "Sprite",
 "class": "Cell",
 "language": "GDScript",
@@ -25,6 +30,7 @@ _global_script_classes=[ {
 "path": "res://util/two_d_array.gd"
 } ]
 _global_script_class_icons={
+"Board": "",
 "Cell": "",
 "TupleInt": "",
 "TwoDimensionalArray": ""
