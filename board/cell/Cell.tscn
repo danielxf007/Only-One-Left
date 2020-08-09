@@ -1,6 +1,24 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://board/cell/cell.gd" type="Script" id=1]
+[ext_resource path="res://assets/item_87.png" type="Texture" id=2]
+[ext_resource path="res://assets/item_84.png" type="Texture" id=3]
+[ext_resource path="res://assets/item_90.png" type="Texture" id=4]
+[ext_resource path="res://assets/item_103.png" type="Texture" id=5]
+[ext_resource path="res://assets/item_106.png" type="Texture" id=6]
+[ext_resource path="res://assets/item_133.png" type="Texture" id=7]
+[ext_resource path="res://assets/item_97.png" type="Texture" id=8]
+[ext_resource path="res://assets/item_81.png" type="Texture" id=9]
 
 [node name="Cell" type="Sprite"]
 script = ExtResource( 1 )
+TEXTURE_STATE = {
+"000": ExtResource( 6 ),
+"001": ExtResource( 9 ),
+"010": ExtResource( 3 ),
+"011": ExtResource( 2 ),
+"100": ExtResource( 4 ),
+"101": ExtResource( 8 ),
+"110": ExtResource( 5 ),
+"111": ExtResource( 7 )
+}
