@@ -39,14 +39,14 @@ func delete_column() -> Array:
 		column.append(row.pop_back())
 	return column
 
-func valid_indexes(indexes: TupleInt) -> bool:
+func valid_indexes(row_index: int, column_index: int) -> bool:
 	return (UtilFunctions.number_in_range_integer(0, self.dimensions.i-1,
-	indexes.i) and UtilFunctions.number_in_range_integer(0, self.dimensions.j-1,
-	indexes.j))
+	row_index) and UtilFunctions.number_in_range_integer(0, self.dimensions.j-1,
+	column_index))
 
-func get_element(indexes: TupleInt):
-	if self.valid_indexes(indexes):
-		return self.array[indexes.i][indexes.j]
+func get_element(row_index: int, column_index: int):
+	if self.valid_indexes(row_index, column_index):
+		return self.array[row_index][column_index]
 	return null
 
 func is_empty() -> bool:

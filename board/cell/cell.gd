@@ -5,21 +5,16 @@ class_name Cell
 const SELECT_COLORS: Array = ["ffffff", "50ffffff"]
 var current_state: String
 var selected: bool
-var coord: TupleInt
 
 func set_current_state(new_state: String, new_texture: Texture) -> void:
 	self.current_state = new_state
 	self.texture = new_texture
 
-func set_on_board(board_pos: Vector2, board_coord: TupleInt) -> void:
-	self.global_position = board_pos
-	self.coord = board_coord
+func set_pos(new_pos: Vector2) -> void:
+	self.global_position = new_pos
 
 func get_pos() -> Vector2:
 	return self.global_position
-
-func get_coord() -> TupleInt:
-	return self.coord
 
 func select() -> void:
 	self.selected = not self.selected

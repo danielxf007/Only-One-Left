@@ -86,11 +86,35 @@ func delete_cells_column(m_columns: int) -> void:
 			cell.destroy()
 		y_columns_deleted += 1
 
-func arrange_cells() -> void:
-	pass
+func set_cells_dim(new_dimensions: Vector2) -> void:
+	var cell: Cell
+	for row in self.two_d_cell_array.get_array():
+		for column_index in range(0, row.size()):
+			cell = row[column_index]
+			cell.set_dim(new_dimensions)
+
+func arrange_cells(board_dim: TupleInt, cell_dim: Vector2,
+start_pos: Vector2) -> void:
+	var cell: Cell
+	var row_offset: float = 0.0
+	var column_offset: float
+	var n_rows: int = self.two_d_cell_array.get_n_rows()
+	var m_columns: int = self.two_d_cell_array.get_m_columns()
+	var cell_pos: Vector2
+	var x_pos: float
+	var y_pos: float
+	for row_index in range(0, n_rows):
+		row_offset = cell_dim.y*row_index
+		y_pos = start_pos.y + row_offset
+		column_offset = 0.0
+		for column_index in range(0, m_columns):
+			cell = self.two_d_cell_array.get_element(row_index, column_index)
+			column_offset = cell_dim.x*column_index
+			x_pos = start_pos.x + column_offset
+			cell_pos = Vector2(x_pos, y_pos)
+			cell.set_pos(cell_pos)
 
 func edit_cells_state() -> void:
 	pass
 
-func set_cells_dim() -> void:
-	pass
+
