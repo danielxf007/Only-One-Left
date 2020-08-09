@@ -5,7 +5,7 @@ class_name Cell
 const SELECT_COLORS: Array = ["ffffff", "50ffffff"]
 const DISABLED_STATE: String = '000'
 export(Dictionary) var TEXTURE_STATE: Dictionary
-var current_state: String
+var current_state: String = '001'
 var selected: bool
 var coord: TupleInt
 
