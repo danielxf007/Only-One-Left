@@ -18,16 +18,26 @@ _global_script_classes=[ {
 "class": "TupleInt",
 "language": "GDScript",
 "path": "res://util/tuple_int.gd"
+}, {
+"base": "Node",
+"class": "TwoDimensionalArray",
+"language": "GDScript",
+"path": "res://util/two_d_array.gd"
 } ]
 _global_script_class_icons={
 "Cell": "",
-"TupleInt": ""
+"TupleInt": "",
+"TwoDimensionalArray": ""
 }
 
 [application]
 
 config/name="only_one_left"
 config/icon="res://icon.png"
+
+[autoload]
+
+UtilFunctions="*res://util/util_functions.gd"
 
 [rendering]
 
