@@ -1,8 +1,9 @@
 extends Node2D
-signal board_changed(dimensions, cell_dim)
+signal board_changed(dimensions, cell_dim, start_pos)
 class_name Board
 export(Dictionary) var CELL_TEXTURES: Dictionary
 export(PackedScene) var CELL_SCENE: PackedScene
+const HALF: float = 0.5
 var two_d_cell_array: TwoDimensionalArray
 
 func _ready():
@@ -33,22 +34,44 @@ func get_cell_dim(view_port_sz: Vector2, board_dim: TupleInt) -> Vector2:
 	var cell_dim: Vector2 = Vector2(width, height)
 	return cell_dim
 
-func get_start_pos(r_margin: float, d_margin: float) -> Vector2:
-	return Vector2(r_margin, d_margin)
+func get_start_pos(r_margin: float, d_margin: float, 
+cell_dim: Vector2) -> Vector2:
+	return Vector2(r_margin+(cell_dim.x*self.HALF),
+	d_margin+(cell_dim.y*self.HALF))
 
 func create(dimensions: TupleInt, r_l_margins: TupleFloat,
 u_d_margins: TupleFloat, cell_states: Array) -> void:
 	var case: String = self.get_storage_case(dimensions)
+	var cell_dim: Vector2
+	var start_pos: Vector2
+	var current_rows: int
+	var current_columns: int
+	if case != "01":
+		var view_port_sz: Vector2 = self.get_view_port_size(r_l_margins,
+		u_d_margins)
+		cell_dim = self.get_cell_dim(view_port_sz, dimensions)
+		start_pos = self.get_start_pos(r_l_margins.i, u_d_margins.j, cell_dim)
+		self.emit_signal("board_changed", dimensions, cell_dim, start_pos)
 	match case:
 		"00":
 			self.create_rows_cell(dimensions)
-			
-		"01":
-			pass
+			self.set_cells_dim(cell_dim)
+			self.arrange_cells(cell_dim, start_pos)
 		"10":
-			pass
+			current_rows = self.two_d_cell_array.get_n_rows()
+			current_columns = self.two_d_cell_array.get_m_columns()
+			if current_rows < dimensions.i:
+				self.create_rows_cell(dimensions)
+			if current_columns < dimensions.j:
+				self.create_columns_cell(dimensions)
 		"11":
-			pass
+			current_rows = self.two_d_cell_array.get_n_rows()
+			current_columns = self.two_d_cell_array.get_m_columns()
+			if current_rows > dimensions.i:
+				self.delete_rows_cell(dimensions.i)
+			if current_columns > dimensions.j:
+				self.delete_columns_cell(dimensions.j)
+	self.change_cells_state(cell_states)
 
 func create_rows_cell(dimensions: TupleInt) -> void:
 	var cell: Cell
@@ -135,7 +158,7 @@ func arrange_cells(cell_dim: Vector2, start_pos: Vector2) -> void:
 			cell_pos = Vector2(x_pos, y_pos)
 			cell.set_pos(cell_pos)
 
-func edit_cells_state(cell_states: Array) -> void:
+func change_cells_state(cell_states: Array) -> void:
 	var cell: Cell
 	var n_rows: int = self.two_d_cell_array.get_n_rows()
 	var m_columns: int = self.two_d_cell_array.get_m_columns()
