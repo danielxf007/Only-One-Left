@@ -9,6 +9,9 @@ var current_state: String = '001'
 var selected: bool
 var coord: TupleInt
 
+func _ready():
+	self.texture = self.TEXTURE_STATE[self.current_state]
+
 func set_on_board(board_pos: Vector2, board_coord: TupleInt) -> void:
 	self.global_position = board_pos
 	self.coord = board_coord
@@ -39,3 +42,7 @@ func set_dim(dimensions: Vector2) -> void:
 	var texture_dim: Vector2 = self.texture.get_size()
 	self.scale.x = texture_dim.x/dimensions.x
 	self.scale.x = texture_dim.y/dimensions.y
+
+func destroy() -> void:
+	self.visible = false
+	self.queue_free()
