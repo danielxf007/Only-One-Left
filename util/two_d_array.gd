@@ -30,12 +30,14 @@ func add_column(column: Array) -> void:
 		row = self.array[index]
 		row.append(column[index])
 
-func delete_row() -> void:
-	self.array.pop_back()
+func delete_row() -> Array:
+	return self.array.pop_back()
 
-func delete_column() -> void:
+func delete_column() -> Array:
+	var column: Array = []
 	for row in self.array:
-		row.pop_back()
+		column.append(row.pop_back())
+	return column
 
 func valid_indexes(indexes: TupleInt) -> bool:
 	return (UtilFunctions.number_in_range_integer(0, self.dimensions.i-1,

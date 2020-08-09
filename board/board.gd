@@ -61,8 +61,30 @@ func create_cells_column(m_columns: int) -> void:
 		self.two_d_cell_array.add_column(cell_column)
 		y_columns_created += 1
 
-func delete_cells() -> void:
-	pass
+func delete_cells_row(n_rows: int) -> void:
+	var cell: Cell
+	var cell_row: Array
+	var current_n_rows: int = self.two_d_cell_array.get_n_rows()
+	var y_rows_deleted: int = 0
+	while y_rows_deleted < current_n_rows-n_rows:
+		cell_row = self.two_d_cell_array.delete_row()
+		for index in range(0, cell_row.size()):
+			cell = cell_row[index]
+			cell.destroy()
+		y_rows_deleted += 1
+
+
+func delete_cells_column(m_columns: int) -> void:
+	var cell: Cell
+	var cell_column: Array
+	var current_m_columns: int = self.two_d_cell_array.get_m_columns()
+	var y_columns_deleted: int = 0
+	while y_columns_deleted < current_m_columns-m_columns:
+		cell_column = self.two_d_cell_array.delete_column()
+		for index in range(0, cell_column.size()):
+			cell = cell_column[index]
+			cell.destroy()
+		y_columns_deleted += 1
 
 func arrange_cells() -> void:
 	pass
