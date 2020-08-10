@@ -15,15 +15,15 @@
 [node name="Main" type="Node"]
 
 [node name="LevelMenu" parent="." instance=ExtResource( 1 )]
-N_ROWS = 3
-M_COLUMNS = 3
+N_ROWS = 4
+M_COLUMNS = 4
 R_MARGIN = 100.0
 L_MARGIN = 100.0
 U_MARGIN = 100.0
 D_MARGIN = 100.0
 
 [node name="PuzzleMenu" parent="." instance=ExtResource( 3 )]
-CELL_STATES = [ "000", "111", "101", "011", "100", "001", "010", "111", "000" ]
+CELL_STATES = [ "000", "001", "010", "011", "100", "101", "110", "111", "000", "001", "010", "011", "100", "101", "110", "111" ]
 
 [node name="Board" parent="." instance=ExtResource( 2 )]
 CELL_TEXTURES = {
