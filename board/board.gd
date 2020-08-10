@@ -8,12 +8,15 @@ var two_d_cell_array: TwoDimensionalArray
 
 func _ready():
 	self.two_d_cell_array = TwoDimensionalArray.new(TupleInt.new(0, 0), [])
+	self.visible = false
 
 func get_storage_case(dimension: TupleInt) -> String:
-	var case: String = "00"
+	var case: String
 	var stor_sp: int = dimension.i*dimension.j
 	var curr_stor_sp: int = self.two_d_cell_array.get_storage_space()
-	if curr_stor_sp == stor_sp:
+	if not curr_stor_sp:
+		case = "00"
+	elif curr_stor_sp == stor_sp:
 		case = "01"
 	elif curr_stor_sp < stor_sp:
 		case = "10"
@@ -40,7 +43,7 @@ cell_dim: Vector2) -> Vector2:
 	d_margin+(cell_dim.y*self.HALF))
 
 func create(dimensions: TupleInt, r_l_margins: TupleFloat,
-u_d_margins: TupleFloat, cell_states: Array) -> void:
+u_d_margins: TupleFloat) -> void:
 	var case: String = self.get_storage_case(dimensions)
 	var cell_dim: Vector2
 	var start_pos: Vector2
@@ -71,7 +74,6 @@ u_d_margins: TupleFloat, cell_states: Array) -> void:
 				self.delete_rows_cell(dimensions.i)
 			if current_columns > dimensions.j:
 				self.delete_columns_cell(dimensions.j)
-	self.change_cells_state(cell_states)
 
 func create_rows_cell(dimensions: TupleInt) -> void:
 	var cell: Cell
@@ -89,6 +91,7 @@ func create_rows_cell(dimensions: TupleInt) -> void:
 			x_cells_created += 1
 		self.two_d_cell_array.add_row(cell_row)
 		y_rows_created += 1
+	self.two_d_cell_array.set_dimensions(dimensions)
 
 func create_columns_cell(dimensions: TupleInt) -> void:
 	var cell: Cell
@@ -106,6 +109,7 @@ func create_columns_cell(dimensions: TupleInt) -> void:
 			x_cells_created += 1
 		self.two_d_cell_array.add_column(cell_column)
 		y_columns_created += 1
+	self.two_d_cell_array.set_dimensions(dimensions)
 
 func delete_rows_cell(n_rows: int) -> void:
 	var cell: Cell
@@ -118,6 +122,7 @@ func delete_rows_cell(n_rows: int) -> void:
 			cell = cell_row[index]
 			cell.destroy()
 		y_rows_deleted += 1
+	self.two_d_cell_array.set_n_rows(n_rows)
 
 
 func delete_columns_cell(m_columns: int) -> void:
@@ -131,6 +136,7 @@ func delete_columns_cell(m_columns: int) -> void:
 			cell = cell_column[index]
 			cell.destroy()
 		y_columns_deleted += 1
+	self.two_d_cell_array.set_m_columns(m_columns)
 
 func set_cells_dim(new_dimensions: Vector2) -> void:
 	var cell: Cell
@@ -170,3 +176,6 @@ func change_cells_state(cell_states: Array) -> void:
 			texture = self.CELL_TEXTURES[cell_states[index]]
 			cell.set_state(cell_states[index], texture)
 			index += 1
+
+func _on_PuzzleMenu_board_appeared():
+	self.visible = true

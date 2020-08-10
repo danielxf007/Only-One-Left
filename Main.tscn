@@ -1,3 +1,42 @@
-[gd_scene format=2]
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://level_menu/LevelMenu.tscn" type="PackedScene" id=1]
+[ext_resource path="res://board/Board.tscn" type="PackedScene" id=2]
+[ext_resource path="res://puzzle_menu/PuzzleMenu.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/item_106.png" type="Texture" id=4]
+[ext_resource path="res://assets/item_84.png" type="Texture" id=5]
+[ext_resource path="res://assets/item_90.png" type="Texture" id=6]
+[ext_resource path="res://assets/item_133.png" type="Texture" id=7]
+[ext_resource path="res://assets/item_87.png" type="Texture" id=8]
+[ext_resource path="res://assets/item_97.png" type="Texture" id=9]
+[ext_resource path="res://assets/item_103.png" type="Texture" id=10]
+[ext_resource path="res://assets/item_81.png" type="Texture" id=11]
 
 [node name="Main" type="Node"]
+
+[node name="LevelMenu" parent="." instance=ExtResource( 1 )]
+N_ROWS = 3
+M_COLUMNS = 3
+R_MARGIN = 100.0
+L_MARGIN = 100.0
+U_MARGIN = 100.0
+D_MARGIN = 100.0
+
+[node name="PuzzleMenu" parent="." instance=ExtResource( 3 )]
+CELL_STATES = [ "000", "111", "101", "011", "100", "001", "010", "111", "000" ]
+
+[node name="Board" parent="." instance=ExtResource( 2 )]
+CELL_TEXTURES = {
+"000": ExtResource( 11 ),
+"001": ExtResource( 5 ),
+"010": ExtResource( 8 ),
+"011": ExtResource( 6 ),
+"100": ExtResource( 9 ),
+"101": ExtResource( 10 ),
+"110": ExtResource( 4 ),
+"111": ExtResource( 7 )
+}
+[connection signal="level_pushed" from="LevelMenu" to="Board" method="create"]
+[connection signal="puzzle_menu_appeared" from="LevelMenu" to="PuzzleMenu" method="_on_LevelMenu_puzzle_menu_appeared"]
+[connection signal="board_appeared" from="PuzzleMenu" to="Board" method="_on_PuzzleMenu_board_appeared"]
+[connection signal="puzzle_button_was_pressed" from="PuzzleMenu" to="Board" method="change_cells_state"]

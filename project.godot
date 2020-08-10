@@ -45,11 +45,16 @@ _global_script_class_icons={
 [application]
 
 config/name="only_one_left"
+run/main_scene="res://Main.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
 UtilFunctions="*res://util/util_functions.gd"
+
+[display]
+
+window/size/width=700
 
 [rendering]
 

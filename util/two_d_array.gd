@@ -12,6 +12,12 @@ func _init(dim: TupleInt, arr: Array) -> void:
 func set_dimensions(dim: TupleInt) -> void:
 	self.dimensions = dim
 
+func set_n_rows(n_rows: int) -> void:
+	self.dimensions.i = n_rows
+
+func set_m_columns(m_columns: int) -> void:
+	self.dimensions.j = m_columns
+
 func set_array(arr: Array) -> void:
 	self.array = arr
 
