@@ -3,6 +3,7 @@ signal board_changed(dimensions, cell_dim, start_pos)
 class_name Board
 export(Dictionary) var CELL_TEXTURES: Dictionary
 export(PackedScene) var CELL_SCENE: PackedScene
+export(float) var CELL_TEXTURE_FILL: float
 const HALF: float = 0.5
 var two_d_cell_array: TwoDimensionalArray
 
@@ -74,6 +75,8 @@ u_d_margins: TupleFloat) -> void:
 				self.delete_rows_cell(dimensions.i)
 			if current_columns > dimensions.j:
 				self.delete_columns_cell(dimensions.j)
+	if case != "01":
+		self.set_cells_texture_fill(self.CELL_TEXTURE_FILL)
 
 func create_rows_cell(dimensions: TupleInt) -> void:
 	var cell: Cell
@@ -176,6 +179,15 @@ func change_cells_state(cell_states: Array) -> void:
 			texture = self.CELL_TEXTURES[cell_states[index]]
 			cell.set_state(cell_states[index], texture)
 			index += 1
+
+func set_cells_texture_fill(cell_texture_fill: float) -> void:
+	var cell: Cell
+	var n_rows: int = self.two_d_cell_array.get_n_rows()
+	var m_columns: int = self.two_d_cell_array.get_m_columns()
+	for row_index in range(0, n_rows):
+		for column_index in range(0, m_columns):
+			cell = self.two_d_cell_array.get_element(row_index, column_index)
+			cell.set_texture_fill(cell_texture_fill)
 
 func _on_PuzzleMenu_board_appeared():
 	self.visible = true

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://board/board.gd" type="Script" id=1]
 [ext_resource path="res://board/cell/Cell.tscn" type="PackedScene" id=2]
@@ -10,6 +10,8 @@
 [ext_resource path="res://assets/item_90.png" type="Texture" id=8]
 [ext_resource path="res://assets/item_133.png" type="Texture" id=9]
 [ext_resource path="res://assets/item_81.png" type="Texture" id=10]
+[ext_resource path="res://assets/bg.jpg" type="Texture" id=12]
+[ext_resource path="res://board/cell_drawer.gd" type="Script" id=13]
 
 [node name="Board" type="Node2D"]
 script = ExtResource( 1 )
@@ -24,3 +26,14 @@ CELL_TEXTURES = {
 "111": ExtResource( 9 )
 }
 CELL_SCENE = ExtResource( 2 )
+CELL_TEXTURE_FILL = 0.9
+
+[node name="BG" type="Sprite" parent="."]
+position = Vector2( 400, 300 )
+texture = ExtResource( 12 )
+
+[node name="CellDrawer" type="Node2D" parent="."]
+script = ExtResource( 13 )
+LINE_COLOR = "ffffff"
+LINE_WIDTH = 4.0
+[connection signal="board_changed" from="." to="CellDrawer" method="_on_Board_board_changed"]
