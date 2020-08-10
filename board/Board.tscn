@@ -26,7 +26,7 @@ CELL_TEXTURES = {
 "111": ExtResource( 10 )
 }
 CELL_SCENE = ExtResource( 2 )
-CELL_TEXTURE_FILL = 0.9
+CELL_TEXTURE_FILL = 1.0
 
 [node name="BG" type="Sprite" parent="."]
 position = Vector2( 400, 300 )
