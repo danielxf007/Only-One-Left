@@ -36,7 +36,7 @@ CELL_TEXTURES = {
 "110": ExtResource( 4 ),
 "111": ExtResource( 11 )
 }
-[connection signal="level_pushed" from="LevelMenu" to="Board" method="create"]
+[connection signal="got_dimensions_margins" from="LevelMenu" to="Board" method="create"]
 [connection signal="puzzle_menu_appeared" from="LevelMenu" to="PuzzleMenu" method="_on_LevelMenu_puzzle_menu_appeared"]
 [connection signal="board_appeared" from="PuzzleMenu" to="Board" method="_on_PuzzleMenu_board_appeared"]
 [connection signal="puzzle_button_was_pressed" from="PuzzleMenu" to="Board" method="change_cells_state"]

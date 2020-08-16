@@ -1,5 +1,5 @@
 extends Node2D
-signal level_pushed(dimensions, r_l_margins, u_d_margins)
+signal got_dimensions_margins(dimensions, r_l_margins, u_d_margins)
 signal got_rules_puzzles(rules, puzzles)
 signal puzzle_menu_appeared()
 export(int) var N_ROWS: int
@@ -24,7 +24,8 @@ func _on_Button_pressed():
 	var dimensions: TupleInt = self.get_puzzle_dimensions()
 	var r_l_margins: TupleFloat = TupleFloat.new(self.R_MARGIN, self.L_MARGIN)
 	var u_d_margins: TupleFloat = TupleFloat.new(self.U_MARGIN, self.D_MARGIN)
-	self.emit_signal("level_pushed", dimensions, r_l_margins, u_d_margins)
+	self.emit_signal("got_dimensions_margins", dimensions, r_l_margins,
+	u_d_margins)
 	self.emit_signal("puzzle_menu_appeared")
 	self.visible = false
 	self.send_config_file_to_board_game()
