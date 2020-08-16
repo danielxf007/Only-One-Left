@@ -1,9 +1,8 @@
 extends Node2D
 signal got_dimensions_margins(dimensions, r_l_margins, u_d_margins)
 signal got_rules_puzzles(rules, puzzles)
+signal got_puzzles_states(puzzles_states)
 signal puzzle_menu_appeared()
-export(int) var N_ROWS: int
-export(int) var M_COLUMNS: int
 export(float) var R_MARGIN: float
 export(float) var L_MARGIN: float
 export(float) var U_MARGIN: float
@@ -24,11 +23,13 @@ func _on_Button_pressed():
 	var dimensions: TupleInt = self.get_puzzle_dimensions()
 	var r_l_margins: TupleFloat = TupleFloat.new(self.R_MARGIN, self.L_MARGIN)
 	var u_d_margins: TupleFloat = TupleFloat.new(self.U_MARGIN, self.D_MARGIN)
+	var puzzles_states: Array = self.get_puzzles_states()
+	self.emit_signal("got_puzzles_states", puzzles_states)
 	self.emit_signal("got_dimensions_margins", dimensions, r_l_margins,
 	u_d_margins)
 	self.emit_signal("puzzle_menu_appeared")
-	self.visible = false
 	self.send_config_file_to_board_game()
+	self.pop_out()
 
 func set_puzzle_config_file() -> void:
 	var config: ConfigFile = ConfigFile.new()
@@ -65,3 +66,9 @@ func send_config_file_to_board_game() -> void:
 	var rules: Array = self.get_puzzle_rules()
 	var puzzles: Array = self.get_puzzles()
 	self.emit_signal("got_rules_puzzles", rules, puzzles)
+
+func pop_up() -> void:
+	self.visible = true
+
+func pop_out() -> void:
+	self.visible = false

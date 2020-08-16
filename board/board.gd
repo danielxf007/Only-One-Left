@@ -9,7 +9,7 @@ var two_d_cell_array: TwoDimensionalArray
 
 func _ready():
 	self.two_d_cell_array = TwoDimensionalArray.new(TupleInt.new(0, 0), [])
-	self.visible = false
+	self.pop_out()
 
 func get_storage_case(dimension: TupleInt) -> String:
 	var case: String
@@ -189,5 +189,8 @@ func set_cells_texture_fill(cell_texture_fill: float) -> void:
 			cell = self.two_d_cell_array.get_element(row_index, column_index)
 			cell.set_texture_fill(cell_texture_fill)
 
-func _on_PuzzleMenu_board_appeared():
+func pop_up() -> void:
 	self.visible = true
+
+func pop_out() -> void:
+	self.visible = false

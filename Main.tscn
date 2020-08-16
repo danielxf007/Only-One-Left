@@ -15,8 +15,6 @@
 [node name="Main" type="Node"]
 
 [node name="LevelMenu" parent="." instance=ExtResource( 1 )]
-N_ROWS = 4
-M_COLUMNS = 4
 R_MARGIN = 100.0
 L_MARGIN = 100.0
 U_MARGIN = 100.0
@@ -37,6 +35,7 @@ CELL_TEXTURES = {
 "111": ExtResource( 11 )
 }
 [connection signal="got_dimensions_margins" from="LevelMenu" to="Board" method="create"]
-[connection signal="puzzle_menu_appeared" from="LevelMenu" to="PuzzleMenu" method="_on_LevelMenu_puzzle_menu_appeared"]
-[connection signal="board_appeared" from="PuzzleMenu" to="Board" method="_on_PuzzleMenu_board_appeared"]
+[connection signal="got_puzzles_states" from="LevelMenu" to="PuzzleMenu" method="_on_LevelMenu_got_puzzles_states"]
+[connection signal="puzzle_menu_appeared" from="LevelMenu" to="PuzzleMenu" method="pop_up"]
+[connection signal="board_appeared" from="PuzzleMenu" to="Board" method="pop_up"]
 [connection signal="puzzle_button_was_pressed" from="PuzzleMenu" to="Board" method="change_cells_state"]
