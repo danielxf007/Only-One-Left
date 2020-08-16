@@ -1,13 +1,17 @@
 extends Sprite
 
 class_name PuzzleCell
+var textures: Array
 var dimensions: Vector2
 var current_state: int
-var texture_fill: float
+var id: int
 
-func set_state(new_state: int, new_texture: Texture) -> void:
+func set_textures(new_textures: Array) -> void:
+	self.textures = new_textures
+ 
+func set_state(new_state: int ) -> void:
 	self.current_state = new_state
-	self.texture = new_texture
+	self.texture = self.textures[new_state]
 	if self.has_to_be_scaled():
 		self.adjust_scale()
 
@@ -20,8 +24,11 @@ func get_pos() -> Vector2:
 func set_dim(dim: Vector2) -> void:
 	self.dimensions = dim
 
-func set_texture_fill(new_texture_fill: float) -> void:
-	self.texture_fill = new_texture_fill
+func set_id(new_id: int) -> void:
+	self.id = new_id
+
+func get_id() -> int:
+	return self.id
 
 func has_to_be_scaled() -> bool:
 	return self.texture.get_size() != self.dimensions

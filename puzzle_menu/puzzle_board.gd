@@ -1,11 +1,10 @@
 extends Node2D
 class_name PuzzleBoard
-export(Dictionary) var CELL_TEXTURES: Dictionary
+export(Array) var CELL_TEXTURES: Array
 export(PackedScene) var CELL_SCENE: PackedScene
-export(float) var CELL_TEXTURE_FILL: float
-export(Array) var CELL_STATES: Array
 const HALF: float = 0.5
 var two_d_cell_array: TwoDimensionalArray
+var cells_state: Array
 
 func _ready():
 	self.two_d_cell_array = TwoDimensionalArray.new(TupleInt.new(0, 0), [])
@@ -75,10 +74,11 @@ u_d_margins: TupleFloat) -> void:
 			if current_columns > dimensions.j:
 				self.delete_columns_cell(dimensions.j)
 	if case != "01":
-		self.set_cells_texture_fill(self.CELL_TEXTURE_FILL)
+		self.set_cells_textures()
+		self.set_cells_ids()
 
 func create_rows_cell(dimensions: TupleInt) -> void:
-	var cell: Cell
+	var cell: PuzzleCell
 	var cell_row: Array
 	var current_n_rows: int = self.two_d_cell_array.get_n_rows()
 	var y_rows_created: int = 0
@@ -96,7 +96,7 @@ func create_rows_cell(dimensions: TupleInt) -> void:
 	self.two_d_cell_array.set_dimensions(dimensions)
 
 func create_columns_cell(dimensions: TupleInt) -> void:
-	var cell: Cell
+	var cell: PuzzleCell
 	var cell_column: Array
 	var current_m_columns: int = self.two_d_cell_array.get_m_columns()
 	var y_columns_created: int = 0
@@ -114,7 +114,7 @@ func create_columns_cell(dimensions: TupleInt) -> void:
 	self.two_d_cell_array.set_dimensions(dimensions)
 
 func delete_rows_cell(n_rows: int) -> void:
-	var cell: Cell
+	var cell: PuzzleCell
 	var cell_row: Array
 	var current_n_rows: int = self.two_d_cell_array.get_n_rows()
 	var y_rows_deleted: int = 0
@@ -126,9 +126,8 @@ func delete_rows_cell(n_rows: int) -> void:
 		y_rows_deleted += 1
 	self.two_d_cell_array.set_n_rows(n_rows)
 
-
 func delete_columns_cell(m_columns: int) -> void:
-	var cell: Cell
+	var cell: PuzzleCell
 	var cell_column: Array
 	var current_m_columns: int = self.two_d_cell_array.get_m_columns()
 	var y_columns_deleted: int = 0
@@ -141,14 +140,32 @@ func delete_columns_cell(m_columns: int) -> void:
 	self.two_d_cell_array.set_m_columns(m_columns)
 
 func set_cells_dim(new_dimensions: Vector2) -> void:
-	var cell: Cell
+	var cell: PuzzleCell
 	for row in self.two_d_cell_array.get_array():
 		for column_index in range(0, row.size()):
 			cell = row[column_index]
 			cell.set_dim(new_dimensions)
 
+func set_cells_textures() -> void:
+	var cell: PuzzleCell
+	var puzzle_num: int = 0
+	for row in self.two_d_cell_array.get_array():
+		for column_index in range(0, row.size()):
+			cell = row[column_index]
+			cell.set_textures(self.CELL_TEXTURES[puzzle_num])
+			puzzle_num+=1
+
+func set_cells_ids() -> void:
+	var cell: PuzzleCell
+	var puzzle_num: int = 0
+	for row in self.two_d_cell_array.get_array():
+		for column_index in range(0, row.size()):
+			cell = row[column_index]
+			cell.set_id(puzzle_num)
+			puzzle_num+=1
+
 func arrange_cells(cell_dim: Vector2, start_pos: Vector2) -> void:
-	var cell: Cell
+	var cell: PuzzleCell
 	var row_offset: float
 	var column_offset: float
 	var n_rows: int = self.two_d_cell_array.get_n_rows()
@@ -166,24 +183,11 @@ func arrange_cells(cell_dim: Vector2, start_pos: Vector2) -> void:
 			cell_pos = Vector2(x_pos, y_pos)
 			cell.set_pos(cell_pos)
 
-func change_cells_state(cell_states: Array) -> void:
-	var cell: Cell
-	var n_rows: int = self.two_d_cell_array.get_n_rows()
-	var m_columns: int = self.two_d_cell_array.get_m_columns()
-	var index = 0
-	var texture: Texture
-	for row_index in range(0, n_rows):
-		for column_index in range(0, m_columns):
-			cell = self.two_d_cell_array.get_element(row_index, column_index)
-			texture = self.CELL_TEXTURES[cell_states[index]]
-			cell.set_state(cell_states[index], texture)
-			index += 1
-
-func set_cells_texture_fill(cell_texture_fill: float) -> void:
-	var cell: Cell
-	var n_rows: int = self.two_d_cell_array.get_n_rows()
-	var m_columns: int = self.two_d_cell_array.get_m_columns()
-	for row_index in range(0, n_rows):
-		for column_index in range(0, m_columns):
-			cell = self.two_d_cell_array.get_element(row_index, column_index)
-			cell.set_texture_fill(cell_texture_fill)
+func change_cells_state() -> void:
+	var cell: PuzzleCell
+	var puzzle_num: int = 0
+	for row in self.two_d_cell_array.get_array():
+		for column_index in range(0, row.size()):
+			cell = row[column_index]
+			cell.set_state(self.cells_state[puzzle_num])
+			puzzle_num+=1
