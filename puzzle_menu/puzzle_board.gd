@@ -9,6 +9,9 @@ var cells_state: Array
 func _ready():
 	self.two_d_cell_array = TwoDimensionalArray.new(TupleInt.new(0, 0), [])
 
+func set_cells_state(new_cells_state: Array) -> void:
+	self.cells_state = new_cells_state
+
 func get_storage_case(dimension: TupleInt) -> String:
 	var case: String
 	var stor_sp: int = dimension.i*dimension.j
