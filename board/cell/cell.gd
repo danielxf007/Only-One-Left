@@ -4,11 +4,11 @@ signal was_deselected(cell)
 class_name Cell
 const SELECT_COLORS: Array = ["ffffff", "50ffffff"]
 var dimensions: Vector2
-var current_state: String
+var current_state: int
 var selected: bool
 var texture_fill: float
 
-func set_state(new_state: String, new_texture: Texture) -> void:
+func set_state(new_state: int, new_texture: Texture) -> void:
 	self.current_state = new_state
 	self.texture = new_texture
 	if self.has_to_be_scaled():
