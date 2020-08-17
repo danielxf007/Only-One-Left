@@ -1,7 +1,7 @@
 extends Node2D
 signal board_changed(dimensions, cell_dim, start_pos)
 class_name Board
-export(Dictionary) var CELL_TEXTURES: Dictionary
+export(Array) var CELL_TEXTURES: Array
 export(PackedScene) var CELL_SCENE: PackedScene
 export(float) var CELL_TEXTURE_FILL: float
 const HALF: float = 0.5
