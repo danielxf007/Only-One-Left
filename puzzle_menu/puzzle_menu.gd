@@ -1,5 +1,6 @@
 extends Node2D
 signal puzzle_button_was_pressed(cell_states)
+signal got_p_dimensions_margins(dimensions, r_l_margins, u_d_margins)
 signal got_puzzle_states(puzzle_states)
 signal board_appeared()
 export(Array) var CELL_STATES: Array
@@ -22,3 +23,9 @@ func pop_out() -> void:
 func _on_LevelMenu_got_puzzles_states(puzzles_states: Array) -> void:
 	self.curr_puzzles_states = puzzles_states
 	self.emit_signal("got_puzzle_states", puzzles_states)
+
+
+func _on_LevelMenu_got_p_dimensions_margins(dimensions: TupleInt,
+r_l_margins: TupleInt, u_d_margins: TupleInt):
+	self.emit_signal("got_p_dimensions_margins", dimensions, r_l_margins,
+	u_d_margins)
