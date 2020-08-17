@@ -169,6 +169,7 @@ func arrange_cells(cell_dim: Vector2, start_pos: Vector2) -> void:
 
 func change_cells_state(cell_states: Array) -> void:
 	var cell: Cell
+	print(cell_states)
 	var n_rows: int = self.two_d_cell_array.get_n_rows()
 	var m_columns: int = self.two_d_cell_array.get_m_columns()
 	var index = 0
