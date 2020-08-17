@@ -1,4 +1,6 @@
 extends Node2D
+signal got_created()
+signal cell_states_changed()
 class_name PuzzleBoard
 export(Array) var CELL_TEXTURES: Array
 export(PackedScene) var CELL_SCENE: PackedScene
@@ -56,7 +58,6 @@ u_d_margins: TupleFloat) -> void:
 		u_d_margins)
 		cell_dim = self.get_cell_dim(view_port_sz, dimensions)
 		start_pos = self.get_start_pos(r_l_margins.i, u_d_margins.j, cell_dim)
-		self.emit_signal("board_changed", dimensions, cell_dim, start_pos)
 	match case:
 		"00":
 			self.create_rows_cell(dimensions)
@@ -79,6 +80,7 @@ u_d_margins: TupleFloat) -> void:
 	if case != "01":
 		self.set_cells_textures()
 		self.set_cells_ids()
+	self.emit_signal("got_created")
 
 func create_rows_cell(dimensions: TupleInt) -> void:
 	var cell: PuzzleCell
@@ -194,3 +196,4 @@ func change_cells_state() -> void:
 			cell = row[column_index]
 			cell.set_state(self.cells_state[puzzle_num])
 			puzzle_num+=1
+	self.emit_signal("cell_states_changed")

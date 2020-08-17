@@ -35,8 +35,8 @@ func has_to_be_scaled() -> bool:
 
 func adjust_scale() -> void:
 	var texture_dim: Vector2 = self.texture.get_size()
-	self.scale.x = (dimensions.x/texture_dim.x)*self.texture_fill
-	self.scale.y = (dimensions.y/texture_dim.y)*self.texture_fill
+	self.scale.x = (dimensions.x/texture_dim.x)
+	self.scale.y = (dimensions.y/texture_dim.y)
 
 func destroy() -> void:
 	self.visible = false

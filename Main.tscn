@@ -39,4 +39,5 @@ CELL_TEXTURES = {
 [connection signal="got_puzzles_states" from="LevelMenu" to="PuzzleMenu" method="_on_LevelMenu_got_puzzles_states"]
 [connection signal="puzzle_menu_appeared" from="LevelMenu" to="PuzzleMenu" method="pop_up"]
 [connection signal="board_appeared" from="PuzzleMenu" to="Board" method="pop_up"]
+[connection signal="puzzle_board_created" from="PuzzleMenu" to="LevelMenu" method="_on_PuzzleMenu_puzzle_board_created"]
 [connection signal="puzzle_button_was_pressed" from="PuzzleMenu" to="Board" method="change_cells_state"]

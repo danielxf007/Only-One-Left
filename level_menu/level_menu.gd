@@ -19,7 +19,7 @@ func _ready():
 	self.set_puzzle_config_file()
 
 func _on_Button_pressed():
-	var new_section_name: String = self.START_SECTION_NAME + str(1)
+	var new_section_name: String = self.START_SECTION_NAME + str(7)
 	self.set_curr_section_name(new_section_name)
 	self.set_puzzle_config_file_keys()
 	var dimensions: TupleInt = self.get_puzzle_dimensions()
@@ -31,9 +31,9 @@ func _on_Button_pressed():
 	var puzzles: Array = self.get_puzzles()
 # warning-ignore:integer_division
 	var p_dimensions: TupleInt = TupleInt.new(puzzles.size()/self.K, self.K)
+	self.emit_signal("got_puzzles_states", puzzles_states)
 	self.emit_signal("got_p_dimensions_margins", p_dimensions, r_l_margins,
 	u_d_margins)
-	self.emit_signal("got_puzzles_states", puzzles_states)
 	self.emit_signal("got_dimensions_margins", dimensions, r_l_margins,
 	u_d_margins)
 	self.emit_signal("got_rules_solutions_puzzles", rules, solutions, puzzles)
@@ -87,3 +87,7 @@ func pop_up() -> void:
 
 func pop_out() -> void:
 	self.visible = false
+
+func _on_PuzzleMenu_puzzle_board_created() -> void:
+	self.emit_signal("puzzle_menu_appeared")
+	self.pop_out()
