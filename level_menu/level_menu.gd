@@ -1,6 +1,6 @@
 extends Node2D
 signal got_dimensions_margins(dimensions, r_l_margins, u_d_margins)
-signal got_p_dimensions_margins(dimensions, r_l_margins, u_d_margins)
+signal got_p_dimensions(dimensions)
 signal got_rules_solutions_puzzles(rules, solutions, puzzles)
 signal got_puzzles_states(puzzles_states)
 signal puzzle_menu_appeared()
@@ -32,8 +32,7 @@ func _on_Button_pressed():
 # warning-ignore:integer_division
 	var p_dimensions: TupleInt = TupleInt.new(puzzles.size()/self.K, self.K)
 	self.emit_signal("got_puzzles_states", puzzles_states)
-	self.emit_signal("got_p_dimensions_margins", p_dimensions, r_l_margins,
-	u_d_margins)
+	self.emit_signal("got_p_dimensions", p_dimensions)
 	self.emit_signal("got_dimensions_margins", dimensions, r_l_margins,
 	u_d_margins)
 	self.emit_signal("got_rules_solutions_puzzles", rules, solutions, puzzles)

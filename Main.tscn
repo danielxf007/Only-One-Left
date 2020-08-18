@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://level_menu/LevelMenu.tscn" type="PackedScene" id=1]
+[ext_resource path="res://game/Game.tscn" type="PackedScene" id=2]
 [ext_resource path="res://puzzle_menu/PuzzleMenu.tscn" type="PackedScene" id=3]
 
 [node name="Main" type="Node"]
@@ -12,3 +13,5 @@ U_MARGIN = 100.0
 D_MARGIN = 100.0
 
 [node name="PuzzleMenu" parent="." instance=ExtResource( 3 )]
+
+[node name="Game" parent="." instance=ExtResource( 2 )]
