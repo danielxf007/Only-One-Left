@@ -1,13 +1,9 @@
 extends Node2D
-signal got_dimensions_margins(dimensions, r_l_margins, u_d_margins)
+signal got_g_dimensions(dimensions)
 signal got_p_dimensions(dimensions)
 signal got_rules_solutions_puzzles(rules, solutions, puzzles)
 signal got_puzzles_states(puzzles_states)
 signal puzzle_menu_appeared()
-export(float) var R_MARGIN: float
-export(float) var L_MARGIN: float
-export(float) var U_MARGIN: float
-export(float) var D_MARGIN: float
 const FILE_NAME: String = "user://puzzles.ini"
 const START_SECTION_NAME: String = "LVL_"
 const K: int = 5
@@ -23,8 +19,6 @@ func _on_Button_pressed():
 	self.set_curr_section_name(new_section_name)
 	self.set_puzzle_config_file_keys()
 	var dimensions: TupleInt = self.get_puzzle_dimensions()
-	var r_l_margins: TupleFloat = TupleFloat.new(self.R_MARGIN, self.L_MARGIN)
-	var u_d_margins: TupleFloat = TupleFloat.new(self.U_MARGIN, self.D_MARGIN)
 	var puzzles_states: Array = self.get_puzzles_states()
 	var rules: Array = self.get_puzzle_rules()
 	var solutions: Array = self.get_puzzle_solutions()
@@ -33,11 +27,9 @@ func _on_Button_pressed():
 	var p_dimensions: TupleInt = TupleInt.new(puzzles.size()/self.K, self.K)
 	self.emit_signal("got_puzzles_states", puzzles_states)
 	self.emit_signal("got_p_dimensions", p_dimensions)
-	self.emit_signal("got_dimensions_margins", dimensions, r_l_margins,
-	u_d_margins)
+	self.emit_signal("got_g_dimensions", dimensions)
 	self.emit_signal("got_rules_solutions_puzzles", rules, solutions, puzzles)
 	self.emit_signal("puzzle_menu_appeared")
-	self.send_config_file_to_board_game()
 	self.pop_out()
 
 func set_puzzle_config_file() -> void:
@@ -74,12 +66,6 @@ func get_puzzles() -> Array:
 func get_puzzles_states() -> Array:
 	return self.puzzle_config_file.get_value(self.curr_section_name,
 	self.curr_config_file_keys[4])
-
-func send_config_file_to_board_game() -> void:
-	var rules: Array = self.get_puzzle_rules()
-	var solutions: Array = self.get_puzzle_solutions()
-	var puzzles: Array = self.get_puzzles()
-	self.emit_signal("got_rules_solutions_puzzles", rules, solutions, puzzles)
 
 func pop_up() -> void:
 	self.visible = true

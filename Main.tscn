@@ -7,11 +7,9 @@
 [node name="Main" type="Node"]
 
 [node name="LevelMenu" parent="." instance=ExtResource( 1 )]
-R_MARGIN = 100.0
-L_MARGIN = 100.0
-U_MARGIN = 100.0
-D_MARGIN = 100.0
 
 [node name="PuzzleMenu" parent="." instance=ExtResource( 3 )]
 
 [node name="Game" parent="." instance=ExtResource( 2 )]
+[connection signal="got_g_dimensions" from="LevelMenu" to="Game" method="_on_LevelMenu_got_g_dimensions"]
+[connection signal="got_rules_solutions_puzzles" from="LevelMenu" to="Game" method="_on_LevelMenu_got_rules_solutions_puzzles"]
