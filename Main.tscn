@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://level_menu/LevelMenu.tscn" type="PackedScene" id=1]
-[ext_resource path="res://board/Board.tscn" type="PackedScene" id=2]
 [ext_resource path="res://puzzle_menu/PuzzleMenu.tscn" type="PackedScene" id=3]
 
 [node name="Main" type="Node"]
@@ -13,13 +12,3 @@ U_MARGIN = 100.0
 D_MARGIN = 100.0
 
 [node name="PuzzleMenu" parent="." instance=ExtResource( 3 )]
-
-[node name="Board" parent="." instance=ExtResource( 2 )]
-CELL_TEXTURES = [  ]
-[connection signal="got_dimensions_margins" from="LevelMenu" to="Board" method="create"]
-[connection signal="got_p_dimensions_margins" from="LevelMenu" to="PuzzleMenu" method="_on_LevelMenu_got_p_dimensions_margins"]
-[connection signal="got_puzzles_states" from="LevelMenu" to="PuzzleMenu" method="_on_LevelMenu_got_puzzles_states"]
-[connection signal="puzzle_menu_appeared" from="LevelMenu" to="PuzzleMenu" method="pop_up"]
-[connection signal="board_appeared" from="PuzzleMenu" to="Board" method="pop_up"]
-[connection signal="puzzle_board_created" from="PuzzleMenu" to="LevelMenu" method="_on_PuzzleMenu_puzzle_board_created"]
-[connection signal="puzzle_button_was_pressed" from="PuzzleMenu" to="Board" method="change_cells_state"]

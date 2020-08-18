@@ -1,11 +1,14 @@
 extends Node2D
+
 signal board_changed(dimensions, cell_dim, start_pos)
-class_name Board
+class_name GameBoard
 export(Array) var CELL_TEXTURES: Array
 export(PackedScene) var CELL_SCENE: PackedScene
 export(float) var CELL_TEXTURE_FILL: float
 const HALF: float = 0.5
 var two_d_cell_array: TwoDimensionalArray
+var board_states: Array
+var init_cell_states: Array
 
 func _ready():
 	self.two_d_cell_array = TwoDimensionalArray.new(TupleInt.new(0, 0), [])
@@ -77,9 +80,10 @@ u_d_margins: TupleFloat) -> void:
 				self.delete_columns_cell(dimensions.j)
 	if case != "01":
 		self.set_cells_texture_fill(self.CELL_TEXTURE_FILL)
+	self.board_states = [self.two_d_cell_array.get_array().duplicate()]
 
 func create_rows_cell(dimensions: TupleInt) -> void:
-	var cell: Cell
+	var cell: GameCell
 	var cell_row: Array
 	var current_n_rows: int = self.two_d_cell_array.get_n_rows()
 	var y_rows_created: int = 0
@@ -97,7 +101,7 @@ func create_rows_cell(dimensions: TupleInt) -> void:
 	self.two_d_cell_array.set_dimensions(dimensions)
 
 func create_columns_cell(dimensions: TupleInt) -> void:
-	var cell: Cell
+	var cell: GameCell
 	var cell_column: Array
 	var current_m_columns: int = self.two_d_cell_array.get_m_columns()
 	var y_columns_created: int = 0
@@ -115,7 +119,7 @@ func create_columns_cell(dimensions: TupleInt) -> void:
 	self.two_d_cell_array.set_dimensions(dimensions)
 
 func delete_rows_cell(n_rows: int) -> void:
-	var cell: Cell
+	var cell: GameCell
 	var cell_row: Array
 	var current_n_rows: int = self.two_d_cell_array.get_n_rows()
 	var y_rows_deleted: int = 0
@@ -129,7 +133,7 @@ func delete_rows_cell(n_rows: int) -> void:
 
 
 func delete_columns_cell(m_columns: int) -> void:
-	var cell: Cell
+	var cell: GameCell
 	var cell_column: Array
 	var current_m_columns: int = self.two_d_cell_array.get_m_columns()
 	var y_columns_deleted: int = 0
@@ -142,14 +146,14 @@ func delete_columns_cell(m_columns: int) -> void:
 	self.two_d_cell_array.set_m_columns(m_columns)
 
 func set_cells_dim(new_dimensions: Vector2) -> void:
-	var cell: Cell
+	var cell: GameCell
 	for row in self.two_d_cell_array.get_array():
 		for column_index in range(0, row.size()):
 			cell = row[column_index]
 			cell.set_dim(new_dimensions)
 
 func arrange_cells(cell_dim: Vector2, start_pos: Vector2) -> void:
-	var cell: Cell
+	var cell: GameCell
 	var row_offset: float
 	var column_offset: float
 	var n_rows: int = self.two_d_cell_array.get_n_rows()
@@ -168,8 +172,8 @@ func arrange_cells(cell_dim: Vector2, start_pos: Vector2) -> void:
 			cell.set_pos(cell_pos)
 
 func change_cells_state(cell_states: Array) -> void:
-	var cell: Cell
-	print(cell_states)
+	self.init_cell_states = cell_states
+	var cell: GameCell
 	var n_rows: int = self.two_d_cell_array.get_n_rows()
 	var m_columns: int = self.two_d_cell_array.get_m_columns()
 	var index = 0
@@ -182,7 +186,7 @@ func change_cells_state(cell_states: Array) -> void:
 			index += 1
 
 func set_cells_texture_fill(cell_texture_fill: float) -> void:
-	var cell: Cell
+	var cell: GameCell
 	var n_rows: int = self.two_d_cell_array.get_n_rows()
 	var m_columns: int = self.two_d_cell_array.get_m_columns()
 	for row_index in range(0, n_rows):

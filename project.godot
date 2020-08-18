@@ -10,14 +10,14 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Node2D",
-"class": "Board",
+"class": "GameBoard",
 "language": "GDScript",
-"path": "res://board/board.gd"
+"path": "res://game/game_board.gd"
 }, {
 "base": "Sprite",
-"class": "Cell",
+"class": "GameCell",
 "language": "GDScript",
-"path": "res://board/cell/cell.gd"
+"path": "res://game/game_cell.gd"
 }, {
 "base": "Node2D",
 "class": "PuzzleBoard",
@@ -45,8 +45,8 @@ _global_script_classes=[ {
 "path": "res://util/two_d_array.gd"
 } ]
 _global_script_class_icons={
-"Board": "",
-"Cell": "",
+"GameBoard": "",
+"GameCell": "",
 "PuzzleBoard": "",
 "PuzzleCell": "",
 "TupleFloat": "",

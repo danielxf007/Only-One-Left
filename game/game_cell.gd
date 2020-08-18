@@ -1,7 +1,7 @@
 extends Sprite
 signal was_selected(cell)
 signal was_deselected(cell)
-class_name Cell
+class_name GameCell
 const SELECT_COLORS: Array = ["ffffff", "50ffffff"]
 var dimensions: Vector2
 var current_state: int
