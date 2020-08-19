@@ -1,4 +1,4 @@
-[gd_scene load_steps=80 format=2]
+[gd_scene load_steps=81 format=2]
 
 [ext_resource path="res://puzzle_menu/puzzle_menu.gd" type="Script" id=1]
 [ext_resource path="res://puzzle_menu/puzzle_board.gd" type="Script" id=2]
@@ -79,6 +79,7 @@
 [ext_resource path="res://assets/UI/c24.png" type="Texture" id=77]
 [ext_resource path="res://assets/UI/a24.png" type="Texture" id=78]
 [ext_resource path="res://assets/bg.jpg" type="Texture" id=79]
+[ext_resource path="res://util/coordinate_conversor.gd" type="Script" id=80]
 
 [node name="PuzzleMenu" type="Node2D"]
 script = ExtResource( 1 )
@@ -93,6 +94,9 @@ script = ExtResource( 2 )
 CELL_TEXTURES = [ [ ExtResource( 24 ), ExtResource( 26 ), ExtResource( 28 ) ], [ ExtResource( 27 ), ExtResource( 25 ), ExtResource( 23 ) ], [ ExtResource( 14 ), ExtResource( 5 ), ExtResource( 22 ) ], [ ExtResource( 13 ), ExtResource( 10 ), ExtResource( 9 ) ], [ ExtResource( 6 ), ExtResource( 4 ), ExtResource( 15 ) ], [ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 11 ) ], [ ExtResource( 17 ), ExtResource( 16 ), ExtResource( 12 ) ], [ ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ) ], [ ExtResource( 30 ), ExtResource( 29 ), ExtResource( 21 ) ], [ ExtResource( 31 ), ExtResource( 33 ), ExtResource( 32 ) ], [ ExtResource( 39 ), ExtResource( 51 ), ExtResource( 38 ) ], [ ExtResource( 46 ), ExtResource( 60 ), ExtResource( 45 ) ], [ ExtResource( 55 ), ExtResource( 52 ), ExtResource( 35 ) ], [ ExtResource( 61 ), ExtResource( 62 ), ExtResource( 40 ) ], [ ExtResource( 37 ), ExtResource( 36 ), ExtResource( 47 ) ], [ ExtResource( 48 ), ExtResource( 54 ), ExtResource( 59 ) ], [ ExtResource( 58 ), ExtResource( 44 ), ExtResource( 63 ) ], [ ExtResource( 41 ), ExtResource( 50 ), ExtResource( 53 ) ], [ ExtResource( 43 ), ExtResource( 56 ), ExtResource( 57 ) ], [ ExtResource( 42 ), ExtResource( 49 ), ExtResource( 34 ) ], [ ExtResource( 66 ), ExtResource( 65 ), ExtResource( 74 ) ], [ ExtResource( 64 ), ExtResource( 68 ), ExtResource( 69 ) ], [ ExtResource( 75 ), ExtResource( 73 ), ExtResource( 76 ) ], [ ExtResource( 77 ), ExtResource( 71 ), ExtResource( 78 ) ], [ ExtResource( 67 ), ExtResource( 72 ), ExtResource( 70 ) ] ]
 CELL_SCENE = ExtResource( 3 )
 
+[node name="CoordinateConversor" type="Node" parent="."]
+script = ExtResource( 80 )
+
 [node name="Button" type="Button" parent="."]
 margin_left = 1.7818
 margin_top = -0.8909
@@ -106,5 +110,8 @@ __meta__ = {
 [connection signal="got_puzzle_states" from="." to="PuzzleBoard" method="set_cells_state"]
 [connection signal="send_change_puzzle_states" from="." to="PuzzleBoard" method="change_cells_state"]
 [connection signal="cell_states_changed" from="PuzzleBoard" to="." method="_on_PuzzleBoard_cell_states_changed"]
+[connection signal="got_cell_dim" from="PuzzleBoard" to="CoordinateConversor" method="set_cell_dim"]
 [connection signal="got_created" from="PuzzleBoard" to="." method="_on_PuzzleBoard_got_created"]
+[connection signal="got_dimensions" from="PuzzleBoard" to="CoordinateConversor" method="set_board_dim"]
+[connection signal="got_top_left_start_pos" from="PuzzleBoard" to="CoordinateConversor" method="set_board_top_left_start_pos"]
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]

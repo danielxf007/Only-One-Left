@@ -1,6 +1,9 @@
 extends Node2D
 signal got_created()
 signal cell_states_changed()
+signal got_dimensions(dimensions)
+signal got_top_left_start_pos(pos)
+signal got_cell_dim(cell_dim)
 class_name PuzzleBoard
 export(Array) var CELL_TEXTURES: Array
 export(PackedScene) var CELL_SCENE: PackedScene
@@ -58,6 +61,10 @@ u_d_margins: TupleFloat) -> void:
 		u_d_margins)
 		cell_dim = self.get_cell_dim(view_port_sz, dimensions)
 		start_pos = self.get_start_pos(r_l_margins.i, u_d_margins.j, cell_dim)
+		var top_left_pos: Vector2 = start_pos*self.HALF
+		self.emit_signal("got_dimensions", dimensions)
+		self.emit_signal("got_top_left_start_pos", top_left_pos)
+		self.emit_signal("got_cell_dim", cell_dim)
 	match case:
 		"00":
 			self.create_rows_cell(dimensions)
