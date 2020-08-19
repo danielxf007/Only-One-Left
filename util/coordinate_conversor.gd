@@ -5,6 +5,7 @@ const HALF: float = 0.5
 var board_dim: TupleInt
 var board_top_left_start_pos: Vector2
 var cell_dim: Vector2
+var enabled: bool
 
 func set_board_dim(new_board_dim: TupleInt) -> void:
 	self.board_dim = new_board_dim
@@ -14,6 +15,10 @@ func set_board_top_left_start_pos(new_board_top_left_start_pos: Vector2) -> void
 
 func set_cell_dim(new_cell_dim: Vector2) -> void:
 	self.cell_dim = new_cell_dim
+
+func set_enabled(new_value: bool) -> void:
+	self.enabled = new_value
+	self.set_process_input(new_value)
 
 func get_upper_bound_x() -> float:
 	return self.board_top_left_start_pos.x+self.cell_dim.x*(self.board_dim.j+1)

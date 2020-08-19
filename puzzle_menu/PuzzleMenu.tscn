@@ -106,6 +106,7 @@ text = "puzzle"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+[connection signal="appeared" from="." to="CoordinateConversor" method="set_enabled"]
 [connection signal="got_p_dimensions_margins" from="." to="PuzzleBoard" method="create"]
 [connection signal="got_puzzle_states" from="." to="PuzzleBoard" method="set_cells_state"]
 [connection signal="send_change_puzzle_states" from="." to="PuzzleBoard" method="change_cells_state"]

@@ -5,12 +5,14 @@ signal got_puzzle_states(puzzle_states)
 signal send_change_puzzle_states()
 signal puzzle_board_created()
 signal board_appeared()
+signal appeared(value)
 export(float) var R_MARGIN: float
 export(float) var L_MARGIN: float
 export(float) var U_MARGIN: float
 export(float) var D_MARGIN: float
 export(Array) var CELL_STATES: Array
 var curr_puzzles_states: Array
+
 func _ready():
 	self.pop_out()
 
@@ -21,9 +23,11 @@ func _on_Button_pressed():
 
 func pop_up() -> void:
 	self.visible = true
+	self.emit_signal("appeared", true)
 
 func pop_out() -> void:
 	self.visible = false
+	self.emit_signal("appeared", false)
 
 
 func _on_LevelMenu_got_puzzles_states(puzzles_states: Array) -> void:
