@@ -48,3 +48,7 @@ func _on_PuzzleBoard_got_created() -> void:
 
 func _on_PuzzleBoard_cell_states_changed() -> void:
 	self.emit_signal("puzzle_board_created")
+
+
+func _on_PuzzleBoard_got_cell_num(cell_num: int) -> void:
+	print(cell_num)

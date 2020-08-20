@@ -4,6 +4,7 @@ signal cell_states_changed()
 signal got_dimensions(dimensions)
 signal got_top_left_start_pos(pos)
 signal got_cell_dim(cell_dim)
+signal got_cell_num(cell_num)
 class_name PuzzleBoard
 export(Array) var CELL_TEXTURES: Array
 export(PackedScene) var CELL_SCENE: PackedScene
@@ -205,3 +206,8 @@ func change_cells_state() -> void:
 			cell.set_state(self.cells_state[puzzle_num])
 			puzzle_num+=1
 	self.emit_signal("cell_states_changed")
+
+func get_cell_num(indexes: TupleInt) -> void:
+	var cell: PuzzleCell = self.two_d_cell_array.get_element(indexes.i,
+	indexes.j)
+	self.emit_signal("got_cell_num", cell.get_id())

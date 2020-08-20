@@ -45,10 +45,10 @@ func send_board_cell(event_pos:Vector2) -> void:
 			self.emit_signal("got_cell", cell_indexes)
 
 func _input(event):
-	if event is InputEventScreenTouch and not self.state:
+	if event is InputEventScreenTouch:
 		var event_pos: Vector2 = event.position
 		self.send_board_cell(event_pos)
-	elif event is InputEventMouseButton and not self.state:
+	elif event is InputEventMouseButton:
 		if event.get_button_index() == BUTTON_LEFT:
 			var event_pos: Vector2 = event.position
 			self.send_board_cell(event_pos)
